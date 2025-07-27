@@ -1,9 +1,9 @@
-﻿using RabbitMQ.API.Domain.Dtos;
-using RabbitMQ.API.Domain.Views;
+﻿using RabbitMQ.API.Domain.Views;
 using RabbitMQ.API.Domain.Interfaces.Repos;
 using RabbitMQ.API.Domain.Interfaces.Services;
 using AutoMapper;
 using RabbitMQ.API.Domain.Entities;
+using RabbitMQ.API.Domain.Dtos.User;
 
 namespace RabbitMQ.API.Domain.Services;
 
@@ -22,7 +22,7 @@ public partial class UserService(IUserRepository userRepository, IMapper mapper)
         return user == null ? null : _mapper.Map<UserView>(user);
     }
 
-    public async Task<UserView?> CreateUserAsync(UserDto userDto)
+    public async Task<UserView?> CreateUserAsync(CreateUserDto userDto)
     {
         var user = _mapper.Map<User>(userDto);
 
@@ -33,9 +33,12 @@ public partial class UserService(IUserRepository userRepository, IMapper mapper)
         return _mapper.Map<UserView>(createdUser);
     }
 
-    public async Task<UserView?> UpdateUserAsync(UserDto userDto)
+    public async Task<UserView?> UpdateUserAsync(UpdateUserDto userDto)
     {
         var user = _mapper.Map<User>(userDto);
+
+        user.Password = HashPassword(userDto.Password);
+        
         var updatedUser = await _userRepository.UpdateUserAsync(user);
 
         return updatedUser == null ? null : _mapper.Map<UserView>(updatedUser);

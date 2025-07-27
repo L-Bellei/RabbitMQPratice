@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.API.Domain.Dtos;
+using RabbitMQ.API.Domain.Dtos.User;
 using RabbitMQ.API.Domain.Interfaces.Services;
 
 namespace RabbitMQ.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class LoginController(ILoginService loginService, ILogger<LoginController> logger) : ControllerBase
@@ -11,22 +14,22 @@ public class LoginController(ILoginService loginService, ILogger<LoginController
     private readonly ILoginService _loginService = loginService;
     private readonly ILogger<LoginController> _logger = logger;
 
+    [AllowAnonymous]
     [HttpPost("authenticate")]
-    [ProducesResponseType<OkResult>(200)]
-    [ProducesResponseType<UnauthorizedResult>(401)]
+    [ProducesResponseType(typeof(AuthResultDto), 200)]
+    [ProducesResponseType(typeof(string), 401)]
     public async Task<IActionResult> AuthenticateAsync([FromBody] UserLoginDto loginDto)
     {
-        var userLogged = await _loginService.AuthenticateAsync(loginDto);
+        var authResult = await _loginService.AuthenticateAsync(loginDto);
 
-        if (userLogged == null)
+        if (authResult == null)
         {
             _logger.LogWarning("Authentication failed for user {Username}.", loginDto.Identifier);
-
             return Unauthorized("Invalid username or password.");
         }
 
-        _logger.LogInformation("User {Username} authenticated successfully.", userLogged.Name);
+        _logger.LogInformation("User {Username} authenticated successfully.", authResult.User!.Name);
 
-        return Ok(userLogged);
+        return Ok(authResult);
     }
 }

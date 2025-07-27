@@ -1,12 +1,12 @@
-﻿namespace RabbitMQ.API.Domain.Entities;
+﻿namespace RabbitMQ.API.Domain.Dtos.User;
 
-public class User
+public class CreateUserDto
 {
-    public int Id { get; set; } = Guid.NewGuid().GetHashCode(); 
+    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public string Role { get; set; } = "User"; 
+    public string Role { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

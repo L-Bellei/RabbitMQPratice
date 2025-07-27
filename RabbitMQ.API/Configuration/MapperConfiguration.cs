@@ -1,4 +1,5 @@
 ﻿using RabbitMQ.API.Domain.Dtos;
+using RabbitMQ.API.Domain.Dtos.User;
 using RabbitMQ.API.Domain.Entities;
 using RabbitMQ.API.Domain.Views;
 
@@ -14,6 +15,12 @@ public static class MapperConfiguration
                 .ReverseMap();
 
             cfg.CreateMap<UserDto, UserView>()
+                .ReverseMap();
+
+            cfg.CreateMap<CreateUserDto, User>()
+                .ReverseMap();
+
+            cfg.CreateMap<UpdateUserDto, User>()
                 .ReverseMap();
 
             cfg.CreateMap<User, UserView>()

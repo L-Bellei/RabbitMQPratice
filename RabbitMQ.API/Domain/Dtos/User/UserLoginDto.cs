@@ -1,4 +1,4 @@
-﻿namespace RabbitMQ.API.Domain.Dtos;
+﻿namespace RabbitMQ.API.Domain.Dtos.User;
 
 public class UserLoginDto
 {

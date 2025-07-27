@@ -1,8 +1,8 @@
 ﻿namespace RabbitMQ.API.Domain.Dtos;
 
-public class JwtSettingsDto(string issuer, string audience, string key)
+public class JwtSettingsDto
 {
-    public string Issuer { get; set; } = issuer;
-    public string Audience { get; set; } = audience;
-    public string Key { get; set; } = key;
+    public string Issuer { get;set; } = string.Empty;
+    public string Audience { get; set; } = string.Empty;
+    public string Key { get; set; } = string.Empty;
 }

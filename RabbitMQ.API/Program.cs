@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.API.Configuration;
+using RabbitMQ.API.Domain.Dtos;
 using RabbitMQ.API.Infra.Configuration;
 using System.Reflection;
 
@@ -11,6 +12,9 @@ builder.Services.ConfigureMappings();
 builder.Services.AddControllers();
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 builder.Services.AddAuthorizationPolicies(builder.Configuration);
+
+builder.Services.Configure<JwtSettingsDto>(builder.Configuration.GetSection("Jwt"));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RabbitMQ.API.Domain.Dtos;
+using RabbitMQ.API.Domain.Dtos.User;
 using RabbitMQ.API.Domain.Interfaces.Services;
+using RabbitMQ.API.Domain.Views;
 using RabbitMQ.MessageSenderBus.Interfaces;
 using RabbitMQ.MessageSenderBus.Models;
 
@@ -20,7 +21,7 @@ public class UserController(IRabbitMQMessageSender mqSender, ILogger<EnterpriseC
     [HttpPost]
     [ProducesResponseType<AcceptedResult>(202)]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> CreateUserAsync([FromBody] UserDto userDto)
+    public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDto userDto)
     {
         if (userDto == null)
         {
@@ -45,7 +46,7 @@ public class UserController(IRabbitMQMessageSender mqSender, ILogger<EnterpriseC
     [HttpPut("{id}")]
     [ProducesResponseType<AcceptedResult>(202)]
     [Authorize(Roles = "Admin, Manager")]
-    public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UserDto userDto)
+    public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserDto userDto)
     {
         if (userDto == null || userDto.Id != id)
         {
@@ -68,20 +69,20 @@ public class UserController(IRabbitMQMessageSender mqSender, ILogger<EnterpriseC
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType<AcceptedResult>(202)]
-    [Authorize(Roles = "Admin, Manager")]
+    [ProducesResponseType(typeof(UserView), 200)]
+    [Authorize(Roles = "Admin, Manager, User")]
     public async Task<IActionResult> GetUserByIdAsync(int id)
     {
         var userFinded = await _userService.GetUserByIdAsync(id);
 
         _logger.LogInformation("User finded for user ID {UserId}.", id);
 
-        return Ok(new { data = userFinded });
+        return Ok(userFinded);
     }
 
     [HttpGet]
-    [ProducesResponseType<AcceptedResult>(200)]
-    [Authorize(Roles = "Admin, Manager")]
+    [ProducesResponseType(typeof(IEnumerable<UserView>), 200)]
+    [Authorize(Roles = "Admin, Manager, User")]
     public async Task<IActionResult> GetAllUsersAsync()
     {
         var usersFinded = await _userService.GetAllUsersAsync();

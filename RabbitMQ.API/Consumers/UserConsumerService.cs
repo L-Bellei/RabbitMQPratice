@@ -1,4 +1,4 @@
-﻿using RabbitMQ.API.Domain.Dtos;
+﻿using RabbitMQ.API.Domain.Dtos.User;
 using RabbitMQ.API.Domain.Interfaces.Services;
 using RabbitMQ.MessageReceiverBus.Interfaces;
 using RabbitMQ.MessageSenderBus.Models;
@@ -32,7 +32,7 @@ public class UserConsumerService : BackgroundService
             {
                 case "UserCreated":
                     {
-                        var userDto = JsonSerializer.Deserialize<UserDto>(eventMessage.Payload?.ToString() ?? "");
+                        var userDto = JsonSerializer.Deserialize<CreateUserDto>(eventMessage.Payload?.ToString() ?? "");
                         if (userDto != null)
                             await userService.CreateUserAsync(userDto);
                     }
@@ -40,7 +40,7 @@ public class UserConsumerService : BackgroundService
 
                 case "UserUpdated":
                     {
-                        var userDto = JsonSerializer.Deserialize<UserDto>(eventMessage.Payload?.ToString() ?? "");
+                        var userDto = JsonSerializer.Deserialize<UpdateUserDto>(eventMessage.Payload?.ToString() ?? "");
                         if (userDto != null)
                             await userService.UpdateUserAsync(userDto);
                     }
