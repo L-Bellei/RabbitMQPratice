@@ -1,0 +1,95 @@
+﻿.registry-user-content {
+    margin: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-user-registry {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .form-user-registry label {
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .form-user-registry input {
+        font-weight: 500;
+        font-size: 18px;
+        width: 450px;
+        border: none;
+        border-bottom: 1px solid black;
+        margin: 20px 10px;
+        background-color: transparent;
+        text-align: center;
+        padding: 5px;
+    }
+
+        .form-user-registry input:focus,
+        .form-user-registry input:active {
+            outline: none;
+            border-bottom: 1px solid black;
+            box-shadow: none;
+        }
+
+    .form-user-registry button {
+        border: none;
+        border-radius: 6px;
+        padding: 10px 15px;
+        margin: 20px 10px;
+        background-color: #333;
+        color: whitesmoke;
+        font-weight: 700;
+    }
+
+
+.user-list-content {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+    .user-list-content h1 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .user-list-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .user-list-content li {
+        background-color: white;
+        padding: 12px 18px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.2s;
+    }
+
+        .user-list-content li:hover {
+            background-color: #f0f0f0;
+        }
+
+    .user-list-content p {
+        text-align: center;
+        font-style: italic;
+        color: #777;
+    }

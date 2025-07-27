@@ -1,0 +1,50 @@
+﻿@page "/user/register"
+@rendermode InteractiveServer
+@using RabbitMQ.Front.Models
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient http
+@inject NavigationManager NavigationManager
+
+<div class="registry-user-content">
+    <EditForm Model="@user" OnValidSubmit="HandleRegister">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-user-registry">
+            <label for="name">Name:</label>
+            <input type="text" id="name" @bind="user.Name" />
+            <ValidationMessage For="@(() => user.Name)" />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" @bind="user.Email" />
+            <ValidationMessage For="@(() => user.Email)" />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" @bind="user.Password" />
+            <ValidationMessage For="@(() => user.Password)" />
+
+            <button type="submit">Register</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private User user = new();
+
+    private async Task HandleRegister()
+    {
+        if (user == null)
+            return;
+
+        try
+        {
+            var response = await http.PostAsJsonAsync("user", user);
+
+            NavigationManager.NavigateTo("/user/list");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during registration: {ex.Message}");
+        }
+    }
+}
