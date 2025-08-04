@@ -1,0 +1,48 @@
+.create-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 24px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+}
+
+input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  text-align: center;
+}
+
+input:focus {
+  border-color: #7c4dff;
+}
+
+.error {
+  color: red;
+  margin-top: 12px;
+  font-weight: 600;
+}

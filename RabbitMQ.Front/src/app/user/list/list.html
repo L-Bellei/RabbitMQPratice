@@ -1,0 +1,23 @@
+<h2>Usuários</h2>
+<button (click)="goToCreate()">Criar Usuário</button>
+
+<div *ngIf="loading">Carregando...</div>
+<div *ngIf="error" style="color:red">{{ error }}</div>
+
+<table *ngIf="users.length > 0" border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{ user.id }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>
+      <button (click)="goToEdit(user.id)">Editar</button>
+      <button (click)="goToDetails(user.id)">Detalhes</button>
+    </td>
+  </tr>
+</table>
