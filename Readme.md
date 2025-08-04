@@ -7,7 +7,6 @@ A practical, didactic project demonstrating asynchronous messaging and microserv
 ## 🖥️ Stack
 
 - **Backend:** .NET 9 WebAPI
-- **Frontend:** Blazor WebAssembly (.NET 9)
 - **Messaging:** RabbitMQ
 - **Database:** PostgreSQL
 - **Infra:** Docker / Docker Compose
