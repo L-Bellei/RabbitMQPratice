@@ -9,12 +9,14 @@
     <th>ID</th>
     <th>Nome</th>
     <th>Email</th>
+    <th>Role</th>
     <th>Ações</th>
   </tr>
   <tr *ngFor="let user of users">
     <td>{{ user.id }}</td>
     <td>{{ user.name }}</td>
     <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
     <td>
       <button (click)="goToEdit(user.id)">Editar</button>
       <button (click)="goToDetails(user.id)">Detalhes</button>

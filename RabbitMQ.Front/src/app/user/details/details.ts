@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-details',
@@ -23,8 +24,18 @@ export class DetailsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
+
+  showSuccessMessage() {
+    this.snackBar.open('Dados do usuário carregado!', 'Fechar', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -41,6 +52,8 @@ export class DetailsComponent implements OnInit {
           ? new Date(user.updatedAt).toLocaleDateString()
           : '';
         this.loading = false;
+
+        this.showSuccessMessage();
       },
       error: () => {
         this.error = 'Error loading user details.';

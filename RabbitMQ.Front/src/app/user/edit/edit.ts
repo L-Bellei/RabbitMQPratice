@@ -8,6 +8,7 @@ interface User {
   id: number;
   name: string;
   email: string;
+  role: string;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class EditComponent implements OnInit {
   name = '';
   email = '';
   error = '';
+  role = '';
   loading = false;
 
   constructor(
@@ -37,6 +39,7 @@ export class EditComponent implements OnInit {
       next: (user) => {
         this.name = user.name;
         this.email = user.email;
+        this.role = user.role || '';
         this.loading = false;
       },
       error: () => {
@@ -48,7 +51,12 @@ export class EditComponent implements OnInit {
 
   updateUser() {
     this.loading = true;
-    const user: User = { id: this.id, name: this.name, email: this.email };
+    const user: User = {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      role: this.role,
+    };
     this.userService.updateUser(this.id, user).subscribe({
       next: () => {
         this.loading = false;
